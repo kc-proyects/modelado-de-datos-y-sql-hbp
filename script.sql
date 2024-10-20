@@ -9,15 +9,15 @@ create table if not exists socio (
 	nombre varchar(30) not null,
     apellidos varchar(50) not null,
     fecha_nacimiento date not null,
-    email varchar(30) not null
+    email varchar(50) not null
 );
 
 create table if not exists prestamo (
 	id serial primary key,
-	id_pelicula integer not null,
+	id_copia integer not null,
 	dni_socio varchar(9) not null,
     fecha_inicio date not null,
-    fecha_fin date not null
+    fecha_fin date
 );
 
 create table if not exists correspondencia (
@@ -31,14 +31,15 @@ create table if not exists correspondencia (
 
 create table if not exists pelicula (
 	id serial primary key,
-	titulo varchar(30) not null,
-	sinopsis varchar(100) not null
+	titulo varchar not null unique,
+	sinopsis varchar not null
 );
 
 create table if not exists copia (
 	id serial primary key,
-    id_pelicula integer not null unique,
-    idioma varchar(20) not null
+    id_copia integer,
+    id_pelicula_aux integer,
+    copia int not null
 );
 
 create table if not exists director (
@@ -64,7 +65,7 @@ create table if not exists pelicula_genero (
 
 create table if not exists email (
 	id serial primary key,
-    email varchar(30) not null unique
+    email varchar(50) not null unique
 );
 
 create table if not exists carnet (
@@ -79,7 +80,7 @@ foreign key (email) references email(email);
 
 alter table prestamo
 add constraint id_pelicula_fk 
-foreign key (id_pelicula) references copia(id_pelicula);
+foreign key (id_copia) references copia(id);
 
 alter table prestamo
 add constraint dni_fk 
@@ -91,7 +92,7 @@ foreign key (dni_socio) references socio(dni);
 
 alter table copia
 add constraint id_pelicula_cp_fk 
-foreign key (id_pelicula) references pelicula(id);
+foreign key (id_copia) references pelicula(id);
 
 alter table carnet
 add constraint n_socio_fk 
@@ -661,13 +662,57 @@ INSERT INTO tmp_videoclub (id_copia,fecha_alquiler_texto,dni,nombre,apellido_1,a
 	 (308,'2024-01-25','1638778M','Angel','Lorenzo','Caballero','angel.lorenzo.caballero@gmail.com','698073069','47008','2011-07-30','82','1','Izq.','Sol','1Izq.','El bazar de las sorpresas','Comedia','Alfred Kralik es el tímido jefe de vendedores de Matuschek y Compañía, una tienda de Budapest. Todas las mañanas, los empleados esperan juntos la llegada de su jefe, Hugo Matuschek. A pesar de su timidez, Alfred responde al anuncio de un periódico y mantiene un romance por carta. Su jefe decide contratar a una tal Klara Novak en contra de la opinión de Alfred. En el trabajo, Alfred discute constantemente con ella, sin sospechar que es su corresponsal secreta.','Ernst Lubitsch','2024-01-25',NULL);
 
 -- Insertar datos en las demas tablas.
+	
+--insert into pelicula_director (pelicula_id, director_id)
+--select distinct p.id,  from pelicula p
+--join director d on p.titulo = p.titulo;
 
--- He pensado que un buen numero de socio es concatenar S con los primeros 4 numeros del DNI. 	 		
+-- He pensado que un buen numero de socio es concatenar S con los primeros 4 numeros del DNI.
+insert into email (email)
+select distinct v.email from tmp_videoclub as v;
+
 insert into socio (dni, n_socio, nombre, apellidos, fecha_nacimiento, email)
-select distinct v.dni, 'S' || LEFT(v.dni, 4) as n_socio, v.nombre, v.apellido_1 || ' ' || v.apellido_2, TO_DATE(v.fecha_nacimiento, 'YYYY-MM-DD'), v.email 
+select distinct v.dni, 'S' || LEFT(v.dni, 4) as n_socio, v.nombre, v.apellido_1 || ' ' || v.apellido_2, TO_DATE(v.fecha_nacimiento, 'YYYY-MM-DD'), v.email
 from tmp_videoclub as v
 order by v.nombre;
 
+insert into carnet (n_socio)
+select s.n_socio from socio s;
+
+insert into correspondencia (dni_socio, codigo_postal, calle, numero, piso)
+select s.dni, v.codigo_postal, v.calle, CAST(v.numero as INTEGER), CAST(v.piso as INTEGER)
+from socio s
+join tmp_videoclub v on s.dni = v.dni;
+
+insert into pelicula (titulo, sinopsis)
+select distinct v.titulo, v.sinopsis from tmp_videoclub v; 
+
+insert into genero (genero)
+select distinct v.genero from tmp_videoclub v;
+
+insert into director (nombre, biografia)
+
+select distinct v.director, '' from tmp_videoclub v;
+ 
+insert into copia (id_copia, copia)
+select distinct p.id, v.id_copia from tmp_videoclub v join pelicula p on p.titulo=v.titulo;
+
+insert into prestamo (id_copia, dni_socio, fecha_inicio, fecha_fin)
+select c.id_copia, s.dni, v.fecha_alquiler, v.fecha_devolucion 
+from tmp_videoclub v 
+join copia c on v.id_copia = c.copia
+join socio s on v.dni = s.dni;
+
 
 -- Consultas SQL
+
+-- Peliculas disponibles
+select p.titulo from pelicula p
+join prestamo po on p.id = po.id_copia
+where po.fecha_fin is null;
+
+-- Copias por pelicula
+select p.titulo, count(*) from pelicula p
+join copia c on p.id = c.id_copia
+group by p.titulo;
 

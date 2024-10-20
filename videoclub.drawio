@@ -122,7 +122,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RQdMc8sgfqhstPo9OQYl-70" value="titulo varchar(30) not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-68" vertex="1">
+        <mxCell id="RQdMc8sgfqhstPo9OQYl-70" value="titulo varchar not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-68" vertex="1">
           <mxGeometry x="30" width="220" height="30" as="geometry">
             <mxRectangle width="220" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -164,7 +164,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RQdMc8sgfqhstPo9OQYl-108" value="id_pelicula int not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-106" vertex="1">
+        <mxCell id="RQdMc8sgfqhstPo9OQYl-108" value="pelicula varchar not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-106" vertex="1">
           <mxGeometry x="30" width="220" height="30" as="geometry">
             <mxRectangle width="220" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -177,7 +177,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RQdMc8sgfqhstPo9OQYl-125" value="idioma varchar(20) not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-123" vertex="1">
+        <mxCell id="RQdMc8sgfqhstPo9OQYl-125" value="copia int not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-123" vertex="1">
           <mxGeometry x="30" width="220" height="30" as="geometry">
             <mxRectangle width="220" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -214,7 +214,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RQdMc8sgfqhstPo9OQYl-89" value="id_pelicula int not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-87" vertex="1">
+        <mxCell id="RQdMc8sgfqhstPo9OQYl-89" value="id_copia int not null" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;rounded=1;" parent="RQdMc8sgfqhstPo9OQYl-87" vertex="1">
           <mxGeometry x="30" width="220" height="30" as="geometry">
             <mxRectangle width="220" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -258,7 +258,7 @@
             <mxRectangle width="220" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RQdMc8sgfqhstPo9OQYl-132" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;endFill=0;startArrow=ERone;startFill=0;" parent="1" source="RQdMc8sgfqhstPo9OQYl-106" target="RQdMc8sgfqhstPo9OQYl-87" edge="1">
+        <mxCell id="RQdMc8sgfqhstPo9OQYl-132" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERone;endFill=0;startArrow=ERone;startFill=0;exitX=0.988;exitY=0.767;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="RQdMc8sgfqhstPo9OQYl-103" target="RQdMc8sgfqhstPo9OQYl-87" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="RQdMc8sgfqhstPo9OQYl-133" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=ERone;endFill=0;startArrow=ERoneToMany;startFill=0;" parent="1" source="RQdMc8sgfqhstPo9OQYl-90" target="RQdMc8sgfqhstPo9OQYl-19" edge="1">
